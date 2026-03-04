@@ -1,0 +1,26 @@
+# Example cloudflared tunnel configuration
+# Add this to your cloudflared config.yml file
+
+tunnel: YOUR_TUNNEL_ID
+credentials-file: /path/to/YOUR_TUNNEL_ID.json
+
+ingress:
+  # Main domain
+  - hostname: nicholascox.dev
+    service: http://localhost:8000
+  
+  # WWW subdomain
+  - hostname: www.nicholascox.dev
+    service: http://localhost:8000
+  
+  # Existing services (example - keep your existing ones)
+  - hostname: calibre.nicholascox.dev
+    service: http://localhost:8083
+  
+  # Catch-all rule (must be last)
+  - service: http_status:404
+
+# After updating this file, reload the tunnel:
+# sudo systemctl restart cloudflared
+# or
+# cloudflared tunnel run YOUR_TUNNEL_NAME
